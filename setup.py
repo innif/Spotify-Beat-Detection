@@ -4,10 +4,10 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="example-pkg-YOUR-USERNAME-HERE", # Replace with your own username
+    name="lightify",
     version="0.0.1",
-    author="Example Author",
-    author_email="author@example.com",
+    author="Finn Harms",
+    author_email="lightify@finn-harms.de",
     description="A small example package",
     long_description=long_description,
     long_description_content_type="text/markdown",
