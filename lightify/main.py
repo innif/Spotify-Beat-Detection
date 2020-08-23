@@ -5,6 +5,10 @@ import time
 import sys
 from random import choice
 import threading
+import pygame
+
+pygame.init()
+screen = pygame.display.set_mode((400, 400))
 
 song_start_time = 0
 song_start_time_lock = threading.Lock()
@@ -39,12 +43,14 @@ timeChecker.start()
 
 event_types = ['bars','beats','sections']
 next_event = {}
+last_event = {}
 event_lists = {}
 
 for event_string in event_types:
     event_lists[event_string] = current_analysis[event_string]
     event_lists[event_string].reverse()
     next_event[event_string] = event_lists[event_string].pop()['start']*1000
+    last_event[event_string] = 0
 
 while True:
     song_start_time_lock.acquire()
@@ -54,7 +60,17 @@ while True:
     for event_id in event_types:
         if curr_ms > next_event[event_id]:
             print(event_id)
+            last_event[event_id] = next_event[event_id]
             if len(event_lists[event_id]) != 0:
                 next_event[event_id] = event_lists[event_id].pop()['start']*1000
             else:
                 next_event[event_id] = float('inf')
+
+    beat_time = (curr_ms-last_event['beats'])
+    screen.fill((0,0,0))
+    pygame.draw.circle(screen, (255, 255, 255), (200,200), int(max(100-beat_time/10, 5)))
+    pygame.display.update()
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            exit()
