@@ -1,4 +1,6 @@
 {
-    "id":"PUT YOUR CLIENT ID HERE",
-    "secret":"PUT YOUR CLIENT SECRET HERE"
+    "id":           "YOUR SPOTIFY API CLIENT ID",
+    "secret":       "YOUR SPOTIFY API CLIENT SECRET",
+    "scope":        "user-read-currently-playing streaming user-read-playback-position user-read-playback-state",
+    "redirect_uri": "https://raw.githubusercontent.com/innif/Listify/master/response.txt"
 }
